@@ -1,4 +1,4 @@
-# job-application-tracker
+# Job Application Tracker
 A web application to help track job applications during the job
 search process.
 ## Features (Coming Soon)
