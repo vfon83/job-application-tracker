@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}Jobs - Job Tracker{% endblock %}
+{% block content %}
+<h1>Jobs</h1>
+
+{% if action %}
+<h2>{{ action }} Job</h2>
+<form method="post">
+    <label>Job Title *</label>
+    <input type="text" name="job_title" value="{{ job.job_title if job else '' }}" required>
+
+    <label>Company *</label>
+    <select name="company_id" required>
+        <option value="">Select company</option>
+        {% for c in company_list %}
+        <option value="{{ c.company_id }}" {% if job and job.company_id|string == c.company_id|string %}selected{% endif %}>
+            {{ c.company_name }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <label>Job Type</label>
+    <select name="job_type">
+        <option value="">Select type</option>
+        {% for t in job_types %}
+        <option value="{{ t }}" {% if job and job.job_type == t %}selected{% endif %}>{{ t }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Salary Min</label>
+    <input type="number" name="salary_min" value="{{ job.salary_min if job else '' }}">
+
+    <label>Salary Max</label>
+    <input type="number" name="salary_max" value="{{ job.salary_max if job else '' }}">
+
+    <label>Job URL</label>
+    <input type="text" name="job_url" value="{{ job.job_url if job else '' }}">
+
+    <label>Date Posted</label>
+    <input type="date" name="date_posted" value="{{ job.date_posted if job else '' }}">
+
+    <label>Requirements (comma-separated skills)</label>
+    <input type="text" name="requirements" value="{{ job.requirements_text if job and job.requirements_text is defined else '' }}" placeholder="Python, SQL, Flask">
+
+    <button type="submit">Save</button>
+    <a href="{{ url_for('jobs') }}">Cancel</a>
+</form>
+{% else %}
+<p><a class="btn" href="{{ url_for('add_job') }}">Add Job</a></p>
+{% endif %}
+
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Company</th>
+        <th>Type</th>
+        <th>Salary</th>
+        <th>Posted</th>
+        <th>Actions</th>
+    </tr>
+    {% for j in jobs %}
+    <tr>
+        <td>{{ j.job_title }}</td>
+        <td>{{ j.company_name or '' }}</td>
+        <td>{{ j.job_type or '' }}</td>
+        <td>
+            {% if j.salary_min or j.salary_max %}
+                {{ j.salary_min or '?' }} - {{ j.salary_max or '?' }}
+            {% endif %}
+        </td>
+        <td>{{ j.date_posted or '' }}</td>
+        <td>
+            <a href="{{ url_for('edit_job', job_id=j.job_id) }}">Edit</a>
+            <a href="{{ url_for('delete_job', job_id=j.job_id) }}" onclick="return confirm('Delete this job?')">Delete</a>
+        </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="6">No jobs yet.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Job Match - Job Tracker{% endblock %}
+{% block content %}
+<h1>Job Match</h1>
+<form method="post">
+    <label>Your Skills (comma-separated)</label>
+    <input type="text" name="skills" value="{{ skills_text }}" placeholder="Python, SQL, Flask" required>
+    <button type="submit">Find Matches</button>
+</form>
+
+{% if results %}
+<h2>Matching Jobs</h2>
+<table>
+    <tr>
+        <th>Job</th>
+        <th>Company</th>
+        <th>Match</th>
+        <th>Missing Skills</th>
+    </tr>
+    {% for r in results %}
+    <tr>
+        <td>{{ r.job.job_title }}</td>
+        <td>{{ r.job.company_name or '' }}</td>
+        <td>{{ r.percent }}% ({{ r.matched }}/{{ r.total }} skills)</td>
+        <td>{{ r.missing|join(', ') if r.missing else 'None' }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% elif skills_text %}
+<p>No jobs with requirements found.</p>
+{% endif %}
+{% endblock %}

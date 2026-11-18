@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard - Job Tracker{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+<div class="stats">
+    <div class="stat">
+        <h2>{{ stats.companies }}</h2>
+        <p>Companies</p>
+    </div>
+    <div class="stat">
+        <h2>{{ stats.jobs }}</h2>
+        <p>Jobs</p>
+    </div>
+    <div class="stat">
+        <h2>{{ stats.applications }}</h2>
+        <p>Applications</p>
+    </div>
+    <div class="stat">
+        <h2>{{ stats.contacts }}</h2>
+        <p>Contacts</p>
+    </div>
+</div>
+{% if stats.by_status %}
+<h2>Applications by Status</h2>
+<table>
+    <tr>
+        <th>Status</th>
+        <th>Count</th>
+    </tr>
+    {% for row in stats.by_status %}
+    <tr>
+        <td>{{ row.status }}</td>
+        <td>{{ row.count }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock %}
