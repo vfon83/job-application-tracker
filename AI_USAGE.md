@@ -4,8 +4,8 @@
 - GPT 5.6 Sol for guiding/coding help
 
 ## Key Prompts
-1. How to connect Flask to MySQL with mysql-connector-python.
-2. Help me style an HTML form and tables with CSS.
+- How to connect Flask to MySQL with mysql-connector-python.
+- Help me style an HTML form and tables with CSS.
 
 ## What Worked Well
 - Helped with the database connection setup

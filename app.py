@@ -112,7 +112,7 @@ def edit_company(company_id):
 
 @app.route('/companies/delete/<int:company_id>')
 def delete_company(company_id):
-    db.delete_one('companies', 'company_id', company_id)
+    db.delete_company(company_id)
     return redirect(url_for('companies'))
 
 @app.route('/jobs')
@@ -149,7 +149,7 @@ def edit_job(job_id):
 
 @app.route('/jobs/delete/<int:job_id>')
 def delete_job(job_id):
-    db.delete_one('jobs', 'job_id', job_id)
+    db.delete_job(job_id)
     return redirect(url_for('jobs'))
 
 @app.route('/applications')

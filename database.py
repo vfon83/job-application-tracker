@@ -34,6 +34,28 @@ def delete_one(table, id_col, id_val):
     conn.commit()
     conn.close()
 
+def delete_company(company_id):
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute('''
+        DELETE a FROM applications a
+        INNER JOIN jobs j ON a.job_id = j.job_id
+        WHERE j.company_id = %s
+    ''', (company_id,))
+    cursor.execute('DELETE FROM jobs WHERE company_id = %s', (company_id,))
+    cursor.execute('DELETE FROM contacts WHERE company_id = %s', (company_id,))
+    cursor.execute('DELETE FROM companies WHERE company_id = %s', (company_id,))
+    conn.commit()
+    conn.close()
+
+def delete_job(job_id):
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM applications WHERE job_id = %s', (job_id,))
+    cursor.execute('DELETE FROM jobs WHERE job_id = %s', (job_id,))
+    conn.commit()
+    conn.close()
+
 def get_companies():
     return get_all('companies')
 

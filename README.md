@@ -1,6 +1,6 @@
 # Job Application Tracker
 
-## Setup
+[![Job Application Tracker:](https://img.youtube.com/vi/dt6r_Af8IbA/hqdefault.jpg)](https://www.youtube.com/watch?v=dt6r_Af8IbA)
 
 1. Install MySQL and create the database:
 
